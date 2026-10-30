@@ -1,27 +1,36 @@
+import "reflect-metadata"
+import express from "express"
 import { ApolloServer } from "@apollo/server"
-import { startStandaloneServer } from "@apollo/server/standalone"
+import { buildSchema } from "type-graphql"
+import { expressMiddleware } from "@as-integrations/express5"
 
-const typeDefs = `
-  type Query {
-    ping: String
-  }
-`
+// resolvers
+import { AuthResolver } from "./resolvers/auth.resolver"
+import { UserResolver } from "./resolvers/user.resolver"
+
+const PORT = 4000
 
 async function bootstrap() {
+  const app = express()
+
+  const schema = await buildSchema({
+    resolvers: [AuthResolver, UserResolver],
+    validate: false,
+    emitSchemaFile: './schema.graphql',
+  })
+
   const server = new ApolloServer({
-    typeDefs,
-    resolvers: {
-      Query: {
-        ping: () => 'pong',
-      },
-    },
+    schema,
   })
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  })
+  await server.start()
 
-  console.log(`🚀 Server ready at ${url}`)
+  app.use('/graphql', express.json(), expressMiddleware(server))
+
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`)
+  })
 }
 
 bootstrap().catch((err) => {
