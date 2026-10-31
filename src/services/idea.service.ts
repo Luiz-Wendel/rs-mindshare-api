@@ -49,8 +49,14 @@ export class IdeaService {
   }
 
   async findIdea(id: string) {
-    return prismaClient.idea.findUnique({
+    const idea = await prismaClient.idea.findUnique({
       where: { id },
     });
+
+    if (!idea) {
+      throw new Error("Idea not found");
+    }
+
+    return idea;
   }
 }

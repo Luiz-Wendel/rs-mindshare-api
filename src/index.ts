@@ -12,6 +12,7 @@ import { CommentResolver } from "./resolvers/comment.resolver"
 
 // context
 import { buildContext } from "./graphql/context"
+import { VoteResolver } from "./resolvers/vote.resolver"
 
 const PORT = 4000
 
@@ -24,6 +25,7 @@ async function bootstrap() {
       UserResolver,
       IdeaResolver,
       CommentResolver,
+      VoteResolver
     ],
     validate: false,
     emitSchemaFile: './schema.graphql',
