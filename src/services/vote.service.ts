@@ -47,4 +47,10 @@ export class VoteService {
       where: { ideaId },
     });
   }
+
+  async countVotes(ideaId: string) {
+    return prismaClient.vote.count({
+      where: { ideaId },
+    });
+  }
 }

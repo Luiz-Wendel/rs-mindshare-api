@@ -26,6 +26,9 @@ export class IdeaModel {
   @Field(() => [VoteModel], { nullable: true })
   votes?: VoteModel[] | null
 
+  @Field(() => Number, { nullable: true })
+  voteCount?: number | null
+
   @Field(() => GraphQLISODateTime)
   createdAt!: Date
 
