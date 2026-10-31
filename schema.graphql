@@ -44,6 +44,7 @@ type Mutation {
   createUser(data: CreateUserInput!): UserModel!
   login(data: LoginInput!): LoginOutput!
   register(data: RegisterInput!): RegisterOutput!
+  updateIdea(data: UpdateIdeaInput!, id: String!): IdeaModel!
 }
 
 type Query {
@@ -60,6 +61,11 @@ type RegisterOutput {
   refreshToken: String!
   token: String!
   user: UserModel!
+}
+
+input UpdateIdeaInput {
+  description: String
+  title: String
 }
 
 type UserModel {
