@@ -18,7 +18,9 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ideas Idea[]
+  ideas    Idea[]
+  votes    Vote[]
+  comments Comment[]
 
   @@map("users")
 }
@@ -31,7 +33,37 @@ model Idea {
   updatedAt   DateTime @updatedAt
 
   authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  votes    Vote[]
+  comments Comment[]
 
   @@map("ideas")
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  userId    String
+  ideaId    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idea Idea @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, ideaId])
+  @@map("votes")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  ideaId   String
+
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  idea   Idea @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
 }

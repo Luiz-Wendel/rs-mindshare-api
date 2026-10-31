@@ -8,6 +8,7 @@ import { expressMiddleware } from "@as-integrations/express5"
 import { AuthResolver } from "./resolvers/auth.resolver"
 import { UserResolver } from "./resolvers/user.resolver"
 import { IdeaResolver } from "./resolvers/idea.resolver"
+import { CommentResolver } from "./resolvers/comment.resolver"
 
 // context
 import { buildContext } from "./graphql/context"
@@ -21,7 +22,8 @@ async function bootstrap() {
     resolvers: [
       AuthResolver,
       UserResolver,
-      IdeaResolver
+      IdeaResolver,
+      CommentResolver,
     ],
     validate: false,
     emitSchemaFile: './schema.graphql',
