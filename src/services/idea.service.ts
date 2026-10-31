@@ -29,4 +29,8 @@ export class IdeaService {
       },
     });
   }
+
+  async listIdeas() {
+    return prismaClient.idea.findMany();
+  }
 }
