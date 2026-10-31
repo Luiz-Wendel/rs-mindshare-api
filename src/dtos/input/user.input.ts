@@ -12,3 +12,12 @@ export class CreateUserInput {
   @Field(() => Role, { nullable: true })
   role?: Role | null
 }
+
+@InputType()
+export class UpdateUserInput {
+  @Field(() => String, { nullable: true })
+  name?: string | null
+
+  @Field(() => Role, { nullable: true })
+  role?: Role | null
+}
