@@ -3,6 +3,7 @@ import express from "express"
 import { ApolloServer } from "@apollo/server"
 import { buildSchema } from "type-graphql"
 import { expressMiddleware } from "@as-integrations/express5"
+import cors from "cors"
 
 // resolvers
 import { AuthResolver } from "./resolvers/auth.resolver"
@@ -18,6 +19,11 @@ const PORT = 4000
 
 async function bootstrap() {
   const app = express()
+
+  app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+  }))
 
   const schema = await buildSchema({
     resolvers: [
