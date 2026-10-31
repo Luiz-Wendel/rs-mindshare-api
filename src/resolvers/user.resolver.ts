@@ -1,8 +1,16 @@
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver, UseMiddleware } from "type-graphql";
+
+// models
 import { UserModel } from "../models/user.model";
+
+// services
 import { UserService } from "../services/user.service";
 
+// middlewares
+import { IsAuthenticated } from "../middlewares/auth.middleware";
+
 @Resolver(() => UserModel)
+@UseMiddleware(IsAuthenticated)
 export class UserResolver {
   private userService: UserService = new UserService();
 
