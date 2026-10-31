@@ -26,6 +26,7 @@ input CreateIdeaInput {
 input CreateUserInput {
   email: String!
   name: String!
+  role: Role
 }
 
 """
@@ -85,6 +86,14 @@ type RegisterOutput {
   user: UserModel!
 }
 
+"""User role in the system"""
+enum Role {
+  admin
+  member
+  owner
+  viewer
+}
+
 input UpdateIdeaInput {
   description: String
   title: String
@@ -96,6 +105,7 @@ type UserModel {
   id: ID!
   name: String!
   password: String
+  role: Role
   updatedAt: DateTimeISO!
 }
 
