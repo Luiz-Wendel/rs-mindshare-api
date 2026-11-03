@@ -63,15 +63,19 @@ type Mutation {
   createIdea(data: CreateIdeaInput!): IdeaModel!
   createUser(data: CreateUserInput!): UserModel!
   deleteIdea(id: String!): Boolean!
+  deleteUser(id: String!): Boolean!
   login(data: LoginInput!): LoginOutput!
   register(data: RegisterInput!): RegisterOutput!
   toggleVote(ideaId: String!): Boolean!
   updateIdea(data: UpdateIdeaInput!, id: String!): IdeaModel!
+  updateUser(data: UpdateUserInput!, id: String!): UserModel!
 }
 
 type Query {
+  getIdea(id: String!): IdeaModel!
   getUser(id: String!): UserModel!
   listIdeas: [IdeaModel!]!
+  listUsers: [UserModel!]!
 }
 
 input RegisterInput {
@@ -97,6 +101,11 @@ enum Role {
 input UpdateIdeaInput {
   description: String
   title: String
+}
+
+input UpdateUserInput {
+  name: String
+  role: Role
 }
 
 type UserModel {
